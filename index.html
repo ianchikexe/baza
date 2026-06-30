@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RELOAD · живая подписка</title>
-    <!-- Font Awesome -->
+    <title>RELOAD · темный вход</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -19,116 +18,117 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0b0f1c;
+            background: #080b16;
             position: relative;
             overflow: hidden;
             padding: 20px;
         }
 
-        /* ===== ЖИВЫЕ ОБОИ ===== */
-        .live-wallpaper {
+        /* ===== ТЕМНЫЙ ЖИВОЙ ФОН ===== */
+        .dark-wallpaper {
             position: fixed;
             inset: 0;
             z-index: 0;
             background: 
-                radial-gradient(ellipse at 20% 30%, #1a1f3a, #080b16),
-                radial-gradient(ellipse at 80% 70%, #141c30, #060912);
-            animation: wallpaperPulse 12s ease-in-out infinite alternate;
+                radial-gradient(ellipse at 15% 25%, #0f1428, #050812),
+                radial-gradient(ellipse at 85% 75%, #0a1020, #03050c);
+            animation: darkPulse 14s ease-in-out infinite alternate;
         }
 
-        @keyframes wallpaperPulse {
-            0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.05); }
+        @keyframes darkPulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.04); }
         }
 
-        /* Плавающие светящиеся сферы */
-        .orb {
+        /* Тёмные плавающие сферы */
+        .dark-orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(100px);
             pointer-events: none;
-            animation: orbFloat 15s ease-in-out infinite alternate;
+            animation: orbFloatDark 20s ease-in-out infinite alternate;
         }
 
-        .orb1 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(246, 209, 134, 0.15), transparent 70%);
-            top: -100px;
-            left: -100px;
-            animation-duration: 18s;
-        }
-
-        .orb2 {
+        .dark-orb1 {
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(100, 180, 255, 0.10), transparent 70%);
-            bottom: -150px;
-            right: -150px;
+            background: radial-gradient(circle, rgba(60, 80, 140, 0.12), transparent 70%);
+            top: -150px;
+            left: -150px;
             animation-duration: 22s;
-            animation-delay: -5s;
         }
 
-        .orb3 {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(200, 130, 255, 0.08), transparent 70%);
+        .dark-orb2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(100, 60, 140, 0.08), transparent 70%);
+            bottom: -200px;
+            right: -200px;
+            animation-duration: 26s;
+            animation-delay: -6s;
+        }
+
+        .dark-orb3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(40, 100, 160, 0.06), transparent 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation-duration: 25s;
-            animation-delay: -10s;
+            animation-duration: 28s;
+            animation-delay: -12s;
         }
 
-        @keyframes orbFloat {
+        @keyframes orbFloatDark {
             0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(60px, -40px) scale(1.1); }
-            66% { transform: translate(-30px, 60px) scale(0.9); }
-            100% { transform: translate(40px, 20px) scale(1.05); }
+            33% { transform: translate(70px, -50px) scale(1.12); }
+            66% { transform: translate(-40px, 70px) scale(0.88); }
+            100% { transform: translate(50px, 30px) scale(1.06); }
         }
 
-        /* Мерцающие звёзды */
-        .stars {
+        /* Мерцающие частицы */
+        .dark-particles {
             position: fixed;
             inset: 0;
             z-index: 0;
             background-image: 
-                radial-gradient(2px 2px at 10% 20%, rgba(255,255,240,0.4), transparent),
-                radial-gradient(2px 2px at 30% 60%, rgba(255,255,240,0.3), transparent),
-                radial-gradient(3px 3px at 50% 10%, rgba(255,255,240,0.2), transparent),
-                radial-gradient(1px 1px at 70% 80%, rgba(255,255,240,0.5), transparent),
-                radial-gradient(2px 2px at 90% 40%, rgba(255,255,240,0.25), transparent),
-                radial-gradient(1px 1px at 15% 85%, rgba(255,255,240,0.3), transparent),
-                radial-gradient(2px 2px at 60% 50%, rgba(255,255,240,0.2), transparent);
-            background-size: 200% 200%;
-            animation: starsDrift 20s linear infinite;
+                radial-gradient(1.5px 1.5px at 8% 15%, rgba(180, 200, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 25% 55%, rgba(180, 200, 255, 0.2), transparent),
+                radial-gradient(2.5px 2.5px at 45% 8%, rgba(180, 200, 255, 0.15), transparent),
+                radial-gradient(1px 1px at 65% 75%, rgba(180, 200, 255, 0.35), transparent),
+                radial-gradient(2px 2px at 85% 35%, rgba(180, 200, 255, 0.2), transparent),
+                radial-gradient(1.5px 1.5px at 12% 88%, rgba(180, 200, 255, 0.25), transparent),
+                radial-gradient(2px 2px at 55% 45%, rgba(180, 200, 255, 0.15), transparent),
+                radial-gradient(1px 1px at 92% 92%, rgba(180, 200, 255, 0.2), transparent);
+            background-size: 250% 250%;
+            animation: particlesDriftDark 25s linear infinite;
             pointer-events: none;
         }
 
-        @keyframes starsDrift {
+        @keyframes particlesDriftDark {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 0%; }
         }
 
-        /* ===== КАРТОЧКА ===== */
+        /* ===== КАРТОЧКА (тёмная) ===== */
         .glass-card {
             position: relative;
             z-index: 10;
             width: 100%;
             max-width: 480px;
-            background: rgba(12, 16, 30, 0.7);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(8, 12, 26, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
             border-radius: 48px;
             padding: 40px 32px;
-            box-shadow: 0 40px 70px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: 0 50px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.03);
             transition: box-shadow 0.4s ease;
         }
 
         .glass-card:hover {
-            box-shadow: 0 50px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(246, 209, 134, 0.15);
+            box-shadow: 0 60px 100px rgba(0,0,0,0.95), 0 0 0 1px rgba(180, 200, 255, 0.08);
         }
 
         /* ===== БРЕНД ===== */
@@ -137,124 +137,124 @@
             align-items: center;
             justify-content: center;
             gap: 14px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 2.6rem;
             font-weight: 700;
             letter-spacing: 5px;
-            background: linear-gradient(135deg, #f6e9a0, #f0c27f, #e6b06a);
+            background: linear-gradient(135deg, #d4dcee, #a8b8d8, #8899c0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 40px rgba(246, 209, 134, 0.15);
+            text-shadow: 0 0 60px rgba(100, 140, 200, 0.08);
         }
 
         .brand i {
             -webkit-text-fill-color: initial;
-            color: #f6d186;
-            filter: drop-shadow(0 0 12px rgba(246, 209, 134, 0.3));
+            color: #8899c0;
+            filter: drop-shadow(0 0 20px rgba(100, 140, 200, 0.15));
             font-size: 2.4rem;
         }
 
         .sub-brand {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 3px;
-            opacity: 0.5;
-            margin-bottom: 30px;
-            color: #b0c4e8;
+            opacity: 0.35;
+            margin-bottom: 28px;
+            color: #8899bb;
             font-weight: 300;
         }
 
-        /* ===== ПОЛЯ ===== */
+        /* ===== ПОЛЯ (тёмные) ===== */
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             position: relative;
         }
 
         .input-group label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 400;
-            letter-spacing: 0.5px;
-            color: #9aafd4;
-            margin-bottom: 6px;
+            letter-spacing: 0.8px;
+            color: #6a7da0;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
         .input-group input {
             width: 100%;
-            padding: 15px 20px;
-            background: rgba(0,0,0,0.35);
-            border: 1px solid rgba(255,255,255,0.07);
+            padding: 14px 20px;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 40px;
-            font-size: 1rem;
-            color: #f0f3ff;
+            font-size: 0.95rem;
+            color: #d0d8ec;
             outline: none;
             transition: 0.3s;
             backdrop-filter: blur(4px);
-            box-shadow: inset 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .input-group input:focus {
-            border-color: #f6d186;
-            background: rgba(10, 14, 30, 0.7);
-            box-shadow: 0 0 0 4px rgba(246, 209, 134, 0.1), inset 0 2px 8px rgba(0,0,0,0.5);
+            border-color: #8899c0;
+            background: rgba(0,0,0,0.6);
+            box-shadow: 0 0 0 4px rgba(100, 140, 200, 0.06), inset 0 2px 8px rgba(0,0,0,0.5);
         }
 
         .input-group input::placeholder {
-            color: #5e6e92;
+            color: #4a5a7a;
             font-weight: 300;
         }
 
-        /* ===== КНОПКА GOOGLE (выбор аккаунта) ===== */
+        /* ===== КНОПКА GOOGLE (тёмная) ===== */
         .google-btn {
             width: 100%;
             padding: 14px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 60px;
-            color: #eef3ff;
+            color: #c8d4ec;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 14px;
             transition: 0.25s;
             cursor: pointer;
-            margin: 14px 0 18px;
+            margin: 12px 0 16px;
             backdrop-filter: blur(2px);
             position: relative;
             overflow: hidden;
         }
 
         .google-btn:hover {
-            background: rgba(255,255,255,0.10);
-            border-color: #f6d186;
-            box-shadow: 0 0 30px rgba(246, 209, 134, 0.10);
+            background: rgba(255,255,255,0.06);
+            border-color: #8899c0;
+            box-shadow: 0 0 40px rgba(100, 140, 200, 0.05);
             transform: scale(1.01);
         }
 
         .google-btn i {
-            font-size: 1.4rem;
-            color: #f2e0c0;
+            font-size: 1.3rem;
+            color: #aabbd8;
         }
 
         .google-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
         }
 
-        /* ===== ВЫБОР АККАУНТА (модальное окно) ===== */
+        /* ===== МОДАЛКА ВЫБОРА АККАУНТА (тёмная) ===== */
         .account-modal {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             justify-content: center;
             align-items: center;
             animation: modalFadeIn 0.3s ease;
@@ -270,55 +270,60 @@
         }
 
         .modal-content {
-            background: rgba(18, 24, 45, 0.9);
+            background: rgba(10, 14, 30, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 40px;
             padding: 32px 28px;
             max-width: 380px;
             width: 100%;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 50px 80px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: 0 60px 100px rgba(0,0,0,0.9);
         }
 
         .modal-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            color: #e8edff;
+            color: #c8d4ec;
             text-align: center;
             margin-bottom: 20px;
             letter-spacing: 1px;
+        }
+
+        .modal-title i {
+            color: #8899c0;
+            margin-right: 10px;
         }
 
         .account-option {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 14px 18px;
-            background: rgba(255,255,255,0.04);
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.02);
             border-radius: 30px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid transparent;
         }
 
         .account-option:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(246, 209, 134, 0.2);
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(136, 153, 192, 0.15);
             transform: translateX(4px);
         }
 
         .account-option .avatar {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f6d186, #eab96b);
+            background: linear-gradient(135deg, #6a7da0, #4a5a7a);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            color: #121624;
-            font-size: 1.1rem;
+            color: #d0d8ec;
+            font-size: 1rem;
             flex-shrink: 0;
         }
 
@@ -328,52 +333,53 @@
 
         .account-option .info .name {
             font-weight: 500;
-            color: #f0f3ff;
-            font-size: 0.95rem;
+            color: #d0d8ec;
+            font-size: 0.9rem;
         }
 
         .account-option .info .email {
-            font-size: 0.8rem;
-            color: #889bc0;
+            font-size: 0.75rem;
+            color: #5a6a8a;
         }
 
         .account-option .check {
-            color: #8bc34a;
-            font-size: 1.2rem;
+            color: #6a8a4a;
+            font-size: 1.1rem;
             opacity: 0;
             transition: 0.2s;
         }
 
         .account-option:hover .check {
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
         .modal-close {
             text-align: center;
-            margin-top: 16px;
-            color: #6a7ca0;
-            font-size: 0.8rem;
+            margin-top: 14px;
+            color: #4a5a7a;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: 0.2s;
+            letter-spacing: 1px;
         }
 
         .modal-close:hover {
-            color: #f6d186;
+            color: #8899c0;
         }
 
-        /* ===== ЗАГРУЗКА (красивая) ===== */
+        /* ===== ЗАГРУЗКА (тёмная, стильная) ===== */
         .loader-overlay {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 2000;
-            background: rgba(8, 12, 28, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(4, 6, 16, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 30px;
+            gap: 32px;
         }
 
         .loader-overlay.active {
@@ -381,38 +387,38 @@
         }
 
         .loader-ring {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            border: 3px solid rgba(246, 209, 134, 0.1);
-            border-top: 3px solid #f6d186;
-            border-right: 3px solid #f0c27f;
-            animation: spin 1s cubic-bezier(0.6, 0, 0.4, 1) infinite;
-            box-shadow: 0 0 50px rgba(246, 209, 134, 0.1);
+            border: 2px solid rgba(136, 153, 192, 0.08);
+            border-top: 2px solid #8899c0;
+            border-right: 2px solid #6a7da0;
+            animation: spinDark 1s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+            box-shadow: 0 0 60px rgba(100, 140, 200, 0.04);
         }
 
-        @keyframes spin {
+        @keyframes spinDark {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
         .loader-text {
-            color: #d0def5;
+            color: #7a8aaa;
             font-weight: 300;
-            letter-spacing: 4px;
-            font-size: 1rem;
-            animation: pulseText 1.4s ease-in-out infinite;
+            letter-spacing: 5px;
+            font-size: 0.9rem;
+            animation: pulseTextDark 1.6s ease-in-out infinite;
         }
 
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        @keyframes pulseTextDark {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
         }
 
         .loader-progress {
-            width: 200px;
+            width: 180px;
             height: 2px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
             border-radius: 4px;
             overflow: hidden;
         }
@@ -420,26 +426,26 @@
         .loader-progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #f6d186, #f0c27f, #e6b06a);
+            background: linear-gradient(90deg, #4a5a7a, #8899c0, #aabbd8);
             border-radius: 4px;
-            animation: progressLoad 2.2s ease-in-out forwards;
+            animation: progressLoadDark 2.4s ease-in-out forwards;
         }
 
-        @keyframes progressLoad {
+        @keyframes progressLoadDark {
             0% { width: 0%; }
-            30% { width: 35%; }
-            60% { width: 65%; }
-            85% { width: 85%; }
+            25% { width: 30%; }
+            55% { width: 60%; }
+            80% { width: 82%; }
             100% { width: 100%; }
         }
 
-        /* ===== СТАТУС ===== */
+        /* ===== СТАТУС (тёмный) ===== */
         .status-area {
-            background: rgba(0,0,0,0.25);
+            background: rgba(0,0,0,0.35);
             border-radius: 40px;
-            padding: 16px 20px;
-            margin: 16px 0 14px;
-            border-left: 2px solid #f6d186;
+            padding: 14px 18px;
+            margin: 14px 0 12px;
+            border-left: 2px solid #4a5a7a;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -449,31 +455,31 @@
 
         .status-text {
             font-weight: 300;
-            font-size: 0.9rem;
-            color: #cfdcf5;
+            font-size: 0.85rem;
+            color: #9aabca;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .status-text i {
-            color: #7f8fb0;
+            color: #4a5a7a;
             font-size: 0.6rem;
             transition: 0.3s;
         }
 
         .btn-verify {
-            background: linear-gradient(145deg, #f6d186, #eab96b);
+            background: linear-gradient(145deg, #4a5a7a, #3a4a6a);
             border: none;
-            padding: 10px 24px;
+            padding: 8px 22px;
             border-radius: 40px;
-            font-weight: 600;
-            color: #121624;
+            font-weight: 500;
+            color: #d0d8ec;
             letter-spacing: 0.5px;
-            box-shadow: 0 6px 18px rgba(246, 209, 134, 0.2);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
             transition: 0.25s;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -481,8 +487,8 @@
 
         .btn-verify:hover:not(:disabled) {
             transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(246, 209, 134, 0.4);
-            background: #fadc9a;
+            box-shadow: 0 6px 24px rgba(100, 140, 200, 0.15);
+            background: #5a6a8a;
         }
 
         .btn-verify:active:not(:disabled) {
@@ -490,125 +496,137 @@
         }
 
         .btn-verify:disabled {
-            opacity: 0.4;
+            opacity: 0.3;
             cursor: not-allowed;
             transform: none !important;
         }
 
-        /* ===== КЛЮЧ ===== */
+        /* ===== КЛЮЧ (тёмный) ===== */
         .key-container {
-            margin: 16px 0 6px;
-            padding: 14px 20px;
-            background: rgba(0,0,0,0.3);
+            margin: 14px 0 4px;
+            padding: 12px 18px;
+            background: rgba(0,0,0,0.35);
             border-radius: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 16px;
-            border: 1px dashed rgba(246, 209, 134, 0.15);
+            border: 1px dashed rgba(136, 153, 192, 0.08);
             transition: 0.4s;
         }
 
         .key-container.active {
-            border-color: #8bc34a;
-            box-shadow: 0 0 40px rgba(139, 195, 74, 0.10);
+            border-color: #6a8a4a;
+            box-shadow: 0 0 50px rgba(100, 140, 80, 0.04);
         }
 
         .key-label {
             font-weight: 300;
-            color: #b3c7ed;
+            color: #6a7da0;
             letter-spacing: 1px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .key-value {
             font-family: 'Courier New', monospace;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             letter-spacing: 6px;
-            color: #4d5a7a;
+            color: #3a4a5a;
             transition: 0.4s;
         }
 
         .key-value.revealed {
-            color: #f6e19b;
-            text-shadow: 0 0 40px rgba(246, 209, 134, 0.3);
+            color: #aabbd8;
+            text-shadow: 0 0 50px rgba(136, 153, 192, 0.1);
         }
 
         .key-check {
-            color: #4d5a7a;
-            font-size: 1.2rem;
+            color: #3a4a5a;
+            font-size: 1.1rem;
             transition: 0.4s;
         }
 
         .key-check.revealed {
-            color: #8bc34a;
+            color: #7a9a5a;
         }
 
         /* ===== FOOTER ===== */
         .footnote {
             text-align: center;
-            margin-top: 24px;
-            font-size: 0.65rem;
-            opacity: 0.3;
+            margin-top: 22px;
+            font-size: 0.6rem;
+            opacity: 0.2;
             letter-spacing: 1.5px;
-            color: #afc0e0;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            padding-top: 16px;
+            color: #5a6a8a;
+            border-top: 1px solid rgba(255,255,255,0.02);
+            padding-top: 14px;
         }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 480px) {
-            .glass-card { padding: 28px 16px; }
+            .glass-card { padding: 24px 16px; }
             .brand { font-size: 2rem; }
             .brand i { font-size: 1.8rem; }
             .status-area { flex-direction: column; align-items: stretch; }
             .btn-verify { justify-content: center; }
-            .modal-content { margin: 20px; }
+            .modal-content { margin: 16px; padding: 24px 20px; }
         }
     </style>
 </head>
 <body>
-    <!-- ЖИВЫЕ ОБОИ -->
-    <div class="live-wallpaper"></div>
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-    <div class="stars"></div>
+    <!-- ТЕМНЫЙ ЖИВОЙ ФОН -->
+    <div class="dark-wallpaper"></div>
+    <div class="dark-orb dark-orb1"></div>
+    <div class="dark-orb dark-orb2"></div>
+    <div class="dark-orb dark-orb3"></div>
+    <div class="dark-particles"></div>
 
     <!-- ===== ВЫБОР АККАУНТА (модалка) ===== -->
     <div class="account-modal" id="accountModal">
         <div class="modal-content">
-            <div class="modal-title"><i class="fas fa-user-circle" style="margin-right: 10px;"></i>Выберите аккаунт</div>
-            <div class="account-option" data-account="alex">
+            <div class="modal-title"><i class="fas fa-user-circle"></i>Выберите аккаунт Google</div>
+            
+            <!-- АККАУНТЫ — ЗДЕСЬ ВЫ МОЖЕТЕ ДОБАВИТЬ СВОИ -->
+            <div class="account-option" data-account="user1">
                 <div class="avatar">A</div>
                 <div class="info">
-                    <div class="name">Alex Novikov</div>
-                    <div class="email">alex@reload.xyz</div>
+                    <div class="name">Алексей Иванов</div>
+                    <div class="email">alex.ivanov@gmail.com</div>
                 </div>
                 <div class="check"><i class="fas fa-check-circle"></i></div>
             </div>
-            <div class="account-option" data-account="maria">
-                <div class="avatar">M</div>
+            <div class="account-option" data-account="user2">
+                <div class="avatar">E</div>
                 <div class="info">
-                    <div class="name">Maria Schneider</div>
-                    <div class="email">maria@reload.xyz</div>
+                    <div class="name">Екатерина Смирнова</div>
+                    <div class="email">katya.smirnova@gmail.com</div>
                 </div>
                 <div class="check"><i class="fas fa-check-circle"></i></div>
             </div>
-            <div class="account-option" data-account="dmitry">
-                <div class="avatar">D</div>
+            <div class="account-option" data-account="user3">
+                <div class="avatar">М</div>
                 <div class="info">
-                    <div class="name">Dmitry Volkov</div>
-                    <div class="email">dmitry@reload.xyz</div>
+                    <div class="name">Михаил Петров</div>
+                    <div class="email">mikhail.petrov@gmail.com</div>
                 </div>
                 <div class="check"><i class="fas fa-check-circle"></i></div>
             </div>
+            <div class="account-option" data-account="user4">
+                <div class="avatar">О</div>
+                <div class="info">
+                    <div class="name">Ольга Новикова</div>
+                    <div class="email">olga.novikova@gmail.com</div>
+                </div>
+                <div class="check"><i class="fas fa-check-circle"></i></div>
+            </div>
+            <!-- ===== ДОБАВЬТЕ СВОИ АККАУНТЫ ВЫШЕ ===== -->
+
             <div class="modal-close" id="modalClose"><i class="fas fa-times-circle"></i> Отмена</div>
         </div>
     </div>
 
-    <!-- ===== ЗАГРУЗКА (красивая) ===== -->
+    <!-- ===== ЗАГРУЗКА ===== -->
     <div class="loader-overlay" id="loaderOverlay">
         <div class="loader-ring"></div>
         <div class="loader-text"><i class="fas fa-sync-alt fa-fw" style="margin-right: 10px;"></i>RELOAD · подключение</div>
@@ -622,21 +640,21 @@
         <div class="brand">
             <i class="fas fa-sync-alt fa-fw"></i> RELOAD
         </div>
-        <div class="sub-brand">⚡ живая подписка · ключ 1111</div>
+        <div class="sub-brand">⚡ тёмная подписка · ключ 1111</div>
 
         <!-- Имя -->
         <div class="input-group">
             <label><i class="far fa-user-circle" style="margin-right: 8px;"></i> Имя</label>
-            <input type="text" id="username" placeholder="Ваше имя" value="Alex">
+            <input type="text" id="username" placeholder="Ваше имя" value="Алексей Иванов">
         </div>
 
         <!-- Email -->
         <div class="input-group">
             <label><i class="far fa-envelope" style="margin-right: 8px;"></i> Email</label>
-            <input type="email" id="email" placeholder="you@example.com" value="alex@reload.xyz">
+            <input type="email" id="email" placeholder="you@gmail.com" value="alex.ivanov@gmail.com">
         </div>
 
-        <!-- Кнопка Google с выбором аккаунта -->
+        <!-- Кнопка Google -->
         <button class="google-btn" id="googleBtn">
             <i class="fab fa-google"></i> Войти через Google
         </button>
@@ -648,7 +666,7 @@
                 <span id="statusLabel">Ожидание входа</span>
             </span>
             <button class="btn-verify" id="verifyBtn" disabled>
-                <i class="fas fa-check-circle"></i> Проверить подписку
+                <i class="fas fa-check-circle"></i> Проверить
             </button>
         </div>
 
@@ -679,7 +697,7 @@
             const keyCheck = document.getElementById('keyCheck');
             const keyContainer = document.getElementById('keyContainer');
 
-            // Модалка выбора аккаунта
+            // Модалка
             const accountModal = document.getElementById('accountModal');
             const accountOptions = document.querySelectorAll('.account-option');
             const modalClose = document.getElementById('modalClose');
@@ -692,11 +710,19 @@
             let isSubscriptionVerified = false;
             let selectedAccount = null;
 
-            // --- ФУНКЦИИ UI ---
+            // Данные аккаунтов (для заполнения полей)
+            const accountData = {
+                'user1': { name: 'Алексей Иванов', email: 'alex.ivanov@gmail.com' },
+                'user2': { name: 'Екатерина Смирнова', email: 'katya.smirnova@gmail.com' },
+                'user3': { name: 'Михаил Петров', email: 'mikhail.petrov@gmail.com' },
+                'user4': { name: 'Ольга Новикова', email: 'olga.novikova@gmail.com' }
+            };
+
+            // --- UI ---
             function updateUI() {
                 if (!isLoggedIn) {
                     statusLabel.innerText = '⏳ войдите через Google';
-                    statusIcon.style.color = '#7f8fb0';
+                    statusIcon.style.color = '#4a5a7a';
                     verifyBtn.disabled = true;
                     keyDisplay.innerText = '••••';
                     keyDisplay.classList.remove('revealed');
@@ -705,7 +731,7 @@
                     keyCheck.innerHTML = '<i class="fas fa-circle"></i>';
                 } else if (isLoggedIn && !isSubscriptionVerified) {
                     statusLabel.innerText = '✅ вошли · проверьте подписку';
-                    statusIcon.style.color = '#f6d186';
+                    statusIcon.style.color = '#8899c0';
                     verifyBtn.disabled = false;
                     keyDisplay.innerText = '••••';
                     keyDisplay.classList.remove('revealed');
@@ -713,8 +739,8 @@
                     keyContainer.classList.remove('active');
                     keyCheck.innerHTML = '<i class="fas fa-circle"></i>';
                 } else if (isLoggedIn && isSubscriptionVerified) {
-                    statusLabel.innerText = '✅ подписка подтверждена · ключ активен';
-                    statusIcon.style.color = '#8bc34a';
+                    statusLabel.innerText = '✅ подписка подтверждена';
+                    statusIcon.style.color = '#7a9a5a';
                     verifyBtn.disabled = true;
                     keyDisplay.innerText = '1111';
                     keyDisplay.classList.add('revealed');
@@ -724,22 +750,21 @@
                 }
             }
 
-            // --- ПОКАЗАТЬ ЗАГРУЗКУ ---
+            // --- ЗАГРУЗКА ---
             function showLoader(callback) {
                 loaderOverlay.classList.add('active');
-                // сброс анимации прогресса
                 const progressBar = document.querySelector('.loader-progress-bar');
                 progressBar.style.animation = 'none';
-                void progressBar.offsetWidth; // reflow
-                progressBar.style.animation = 'progressLoad 2.2s ease-in-out forwards';
+                void progressBar.offsetWidth;
+                progressBar.style.animation = 'progressLoadDark 2.4s ease-in-out forwards';
 
                 setTimeout(() => {
                     loaderOverlay.classList.remove('active');
                     if (callback) callback();
-                }, 2500);
+                }, 2600);
             }
 
-            // --- ОТКРЫТЬ МОДАЛКУ ВЫБОРА АККАУНТА ---
+            // --- МОДАЛКА ---
             function openAccountModal() {
                 accountModal.classList.add('active');
             }
@@ -755,34 +780,26 @@
                     selectedAccount = account;
                     closeAccountModal();
 
-                    // Имитация выбора аккаунта → показываем загрузку
                     showLoader(() => {
-                        // После загрузки — логин успешен
                         isLoggedIn = true;
                         isSubscriptionVerified = false;
-                        // Обновляем поля (для красоты)
-                        if (account === 'alex') {
-                            username.value = 'Alex Novikov';
-                            email.value = 'alex@reload.xyz';
-                        } else if (account === 'maria') {
-                            username.value = 'Maria Schneider';
-                            email.value = 'maria@reload.xyz';
-                        } else if (account === 'dmitry') {
-                            username.value = 'Dmitry Volkov';
-                            email.value = 'dmitry@reload.xyz';
+                        
+                        // Заполняем поля данными выбранного аккаунта
+                        if (accountData[account]) {
+                            username.value = accountData[account].name;
+                            email.value = accountData[account].email;
                         }
+
                         updateUI();
-                        // Фидбек на кнопке Google
-                        googleBtn.innerHTML = '<i class="fab fa-google"></i> ✅ ' + selectedAccount;
-                        googleBtn.style.borderColor = '#8bc34a';
-                        googleBtn.style.background = 'rgba(139,195,74,0.12)';
+                        googleBtn.innerHTML = '<i class="fab fa-google"></i> ✅ ' + (accountData[account]?.name || account);
+                        googleBtn.style.borderColor = '#6a8a4a';
+                        googleBtn.style.background = 'rgba(100,140,80,0.06)';
                     });
                 });
             });
 
-            // Закрыть модалку
+            // Закрытие модалки
             modalClose.addEventListener('click', closeAccountModal);
-            // Закрытие по клику вне контента
             accountModal.addEventListener('click', function(e) {
                 if (e.target === this) closeAccountModal();
             });
@@ -790,15 +807,13 @@
             // --- КНОПКА GOOGLE ---
             googleBtn.addEventListener('click', function() {
                 if (isLoggedIn) {
-                    // Если уже вошли — можно перевыбрать аккаунт
                     if (confirm('Вы уже вошли. Хотите выбрать другой аккаунт?')) {
-                        // Сброс
                         isLoggedIn = false;
                         isSubscriptionVerified = false;
                         updateUI();
                         googleBtn.innerHTML = '<i class="fab fa-google"></i> Войти через Google';
-                        googleBtn.style.borderColor = 'rgba(255,255,255,0.12)';
-                        googleBtn.style.background = 'rgba(255,255,255,0.04)';
+                        googleBtn.style.borderColor = 'rgba(255,255,255,0.06)';
+                        googleBtn.style.background = 'rgba(255,255,255,0.03)';
                         openAccountModal();
                     }
                 } else {
@@ -813,35 +828,29 @@
                     return;
                 }
                 if (isSubscriptionVerified) {
-                    alert('Подписка уже подтверждена! Ваш ключ: 1111');
+                    alert('Подписка уже подтверждена! Ключ: 1111');
                     return;
                 }
 
-                // Имитация проверки подписки с красивой загрузкой
                 showLoader(() => {
                     isSubscriptionVerified = true;
                     updateUI();
-                    // Анимация кнопки
-                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Подтверждено';
-                    verifyBtn.style.background = '#8bc34a';
-                    verifyBtn.style.color = '#0f1a1a';
+                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Готово';
+                    verifyBtn.style.background = '#4a6a3a';
+                    verifyBtn.style.color = '#d0d8ec';
                     setTimeout(() => {
-                        verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Проверить подписку';
-                        verifyBtn.style.background = 'linear-gradient(145deg, #f6d186, #eab96b)';
-                        verifyBtn.style.color = '#121624';
-                        updateUI(); // обновим состояние
+                        verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Проверить';
+                        verifyBtn.style.background = 'linear-gradient(145deg, #4a5a7a, #3a4a6a)';
+                        verifyBtn.style.color = '#d0d8ec';
+                        updateUI();
                     }, 1800);
                 });
             });
 
             // --- ИНИЦИАЛИЗАЦИЯ ---
             updateUI();
-
-            // Если пользователь захочет изменить имя/email после входа — не сбрасываем логин,
-            // но можно разрешить. Оставим как есть.
-
-            console.log('RELOAD · живая страница с выбором аккаунта и загрузкой');
-            console.log('Ключ 1111 выдаётся после подтверждения подписки.');
+            console.log('RELOAD · тёмный дизайн с выбором аккаунтов Google');
+            console.log('Добавьте свои аккаунты в список в HTML (account-option)');
         })();
     </script>
 </body>
