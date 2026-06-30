@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RELOAD · живая регистрация</title>
+    <!-- Font Awesome (иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ГЛОБАЛЬНЫЙ СБРОС И ЖИВОЙ ФОН */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b0f1c;
+            /* Живые обои — градиент + анимированные блики */
+            background: radial-gradient(circle at 20% 30%, #1a1f35, #090c17);
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Анимированные «живые» пятна — эффект живых обоев */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(2rem 2rem at 10% 20%, rgba(255, 215, 100, 0.15), transparent 70%),
+                radial-gradient(3rem 3rem at 80% 70%, rgba(100, 200, 255, 0.12), transparent 70%),
+                radial-gradient(4rem 4rem at 40% 80%, rgba(200, 100, 255, 0.10), transparent 70%);
+            animation: breatheGlow 8s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes breatheGlow {
+            0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+            100% { opacity: 1; transform: scale(1.1) rotate(3deg); }
+        }
+
+        /* второй слой — движущиеся искры */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, rgba(255,255,240,0.3), transparent),
+                radial-gradient(2px 2px at 40% 70%, rgba(255,255,240,0.2), transparent),
+                radial-gradient(3px 3px at 70% 20%, rgba(255,255,240,0.25), transparent),
+                radial-gradient(1px 1px at 90% 80%, rgba(255,255,240,0.4), transparent),
+                radial-gradient(2px 2px at 5% 90%, rgba(255,255,240,0.2), transparent);
+            background-size: 200% 200%;
+            animation: sparkleDrift 12s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkleDrift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* КАРТОЧКА */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 460px;
+            background: rgba(20, 25, 45, 0.65);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border-radius: 48px;
+            padding: 40px 32px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.25s ease;
+            color: #f0f3ff;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 40px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,215,100,0.2);
+        }
+
+        /* ЛОГОТИП / НАЗВАНИЕ */
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, #f6e9a0, #f0c27f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand i {
+            font-size: 2.2rem;
+            -webkit-text-fill-color: initial;
+            color: #f6d186;
+            filter: drop-shadow(0 0 8px #f0b87b);
+        }
+
+        .sub-brand {
+            text-align: center;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            margin-top: -18px;
+            margin-bottom: 28px;
+            font-weight: 300;
+            color: #cdd6f0;
+        }
+
+        /* ПОЛЯ ВВОДА */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: #b3c2e6;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 40px;
+            font-size: 1rem;
+            color: #f0f3ff;
+            outline: none;
+            transition: 0.25s;
+            backdrop-filter: blur(4px);
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .input-group input:focus {
+            border-color: #f6d186;
+            background: rgba(10, 14, 30, 0.6);
+            box-shadow: 0 0 0 4px rgba(246, 209, 134, 0.15), inset 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        .input-group input::placeholder {
+            color: #7b89b0;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        /* КНОПКА GOOGLE (имитация) */
+        .google-btn {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 60px;
+            color: #eef3ff;
+            font-weight: 500;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+            margin: 16px 0 20px;
+            backdrop-filter: blur(2px);
+        }
+
+        .google-btn:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: #f6d186;
+            box-shadow: 0 0 20px rgba(246, 209, 134, 0.15);
+            transform: scale(1.01);
+        }
+
+        .google-btn i {
+            font-size: 1.4rem;
+            color: #f2e0c0;
+        }
+
+        /* СТАТУС / КНОПКА ПРОВЕРКИ */
+        .status-area {
+            background: rgba(0,0,0,0.25);
+            border-radius: 40px;
+            padding: 16px 20px;
+            margin: 20px 0 16px;
+            border-left: 2px solid #f6d186;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .status-text {
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: #cfdcf5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-text i {
+            color: #f6c97e;
+        }
+
+        .btn-verify {
+            background: linear-gradient(145deg, #f6d186, #eab96b);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #121624;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 14px rgba(246, 209, 134, 0.2);
+            transition: 0.2s;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-verify:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(246, 209, 134, 0.4);
+            background: #fadc9a;
+        }
+
+        .btn-verify:active {
+            transform: scale(0.97);
+        }
+
+        /* КЛЮЧ — ВЫДАЁТСЯ ПОСЛЕ ПРОВЕРКИ */
+        .key-container {
+            margin: 18px 0 8px;
+            padding: 12px 18px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            border: 1px dashed rgba(246, 209, 134, 0.25);
+            transition: 0.3s;
+        }
+
+        .key-label {
+            font-weight: 300;
+            color: #b3c7ed;
+            letter-spacing: 1px;
+        }
+
+        .key-value {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            color: #f6e19b;
+            text-shadow: 0 0 30px rgba(246, 209, 134, 0.3);
+        }
+
+        .key-placeholder {
+            color: #4d5a7a;
+            font-weight: 300;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* МЕЛКИЙ ТЕКСТ */
+        .footnote {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 0.7rem;
+            opacity: 0.35;
+            letter-spacing: 1px;
+            color: #afc0e0;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            padding-top: 18px;
+        }
+
+        /* АДАПТИВ */
+        @media (max-width: 480px) {
+            .glass-card { padding: 28px 18px; }
+            .brand { font-size: 1.9rem; }
+            .status-area { flex-direction: column; align-items: stretch; }
+            .btn-verify { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <!-- Название RELOAD -->
+        <div class="brand">
+            <i class="fas fa-sync-alt fa-fw"></i> RELOAD
+        </div>
+        <div class="sub-brand">⚡ живая подписка · ключ 1111</div>
+
+        <!-- ИМЯ (регистрация) -->
+        <div class="input-group">
+            <label><i class="far fa-user-circle" style="margin-right: 8px;"></i> Ваше имя</label>
+            <input type="text" id="username" placeholder="Например: Alex" value="Alex">
+        </div>
+
+        <!-- EMAIL -->
+        <div class="input-group">
+            <label><i class="far fa-envelope" style="margin-right: 8px;"></i> Email</label>
+            <input type="email" id="email" placeholder="you@example.com" value="demo@reload.xyz">
+        </div>
+
+        <!-- Кнопка "Зарегистрироваться через Google" (имитация) -->
+        <div class="google-btn" id="googleRegBtn">
+            <i class="fab fa-google"></i> Регистрация через Google
+        </div>
+
+        <!-- СТАТУС + КНОПКА ПРОВЕРИТЬ ПОДПИСКУ -->
+        <div class="status-area">
+            <span class="status-text" id="statusMessage">
+                <i class="fas fa-circle" style="color: #7f8fb0; font-size: 0.6rem;"></i>
+                <span id="statusLabel">Ожидание регистрации</span>
+            </span>
+            <button class="btn-verify" id="verifyBtn">
+                <i class="fas fa-check-circle"></i> Проверить подписку
+            </button>
+        </div>
+
+        <!-- БЛОК С КЛЮЧОМ (изначально скрыт или заглушка) -->
+        <div class="key-container" id="keyContainer">
+            <span class="key-label"><i class="fas fa-key"></i> КЛЮЧ</span>
+            <span class="key-value" id="keyDisplay">1111</span>
+            <!-- иконка подтверждения -->
+            <i class="fas fa-check-circle" style="color: #8bc34a; font-size: 1.3rem; margin-left: 4px;"></i>
+        </div>
+
+        <!-- маленький footnote -->
+        <div class="footnote">
+            <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> после регистрации — подтвердите подписку
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // Элементы
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const googleBtn = document.getElementById('googleRegBtn');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const statusLabel = document.getElementById('statusLabel');
+            const statusIcon = document.querySelector('.status-text i');
+            const keyDisplay = document.getElementById('keyDisplay');
+
+            // Состояние
+            let isRegistered = false;       // прошли регистрацию (имитация)
+            let isSubscriptionVerified = false; // подписка подтверждена
+
+            // Функция обновления UI
+            function updateUI() {
+                // Меняем статус
+                if (!isRegistered) {
+                    statusLabel.innerText = '❌ не зарегистрированы';
+                    statusIcon.style.color = '#7f8fb0';
+                    // ключ показываем, но с плейсхолдером (или оставляем 1111, но делаем бледным)
+                    keyDisplay.innerText = '••••';
+                    keyDisplay.style.color = '#4d5a7a';
+                    keyDisplay.style.textShadow = 'none';
+                    // сбрасываем "подписку" если нет регистрации
+                    isSubscriptionVerified = false;
+                } else if (isRegistered && !isSubscriptionVerified) {
+                    statusLabel.innerText = '✅ зарегистрированы · проверьте подписку';
+                    statusIcon.style.color = '#f6d186';
+                    keyDisplay.innerText = '••••';
+                    keyDisplay.style.color = '#4d5a7a';
+                    keyDisplay.style.textShadow = 'none';
+                } else if (isRegistered && isSubscriptionVerified) {
+                    statusLabel.innerText = '✅ подписка подтверждена · ключ активен';
+                    statusIcon.style.color = '#8bc34a';
+                    keyDisplay.innerText = '1111';
+                    keyDisplay.style.color = '#f6e19b';
+                    keyDisplay.style.textShadow = '0 0 30px rgba(246, 209, 134, 0.3)';
+                }
+
+                // Дополнительно: если регистрация есть, но верификация false, 
+                // то ключ показан как •••• (сделано выше)
+                // Но если регистрация есть и подписка подтверждена — показываем 1111
+            }
+
+            // ИМИТАЦИЯ РЕГИСТРАЦИИ (Google или обычная)
+            function performRegistration() {
+                // простая валидация: имя и email не пустые
+                const name = usernameInput.value.trim();
+                const email = emailInput.value.trim();
+                if (name === '' || email === '') {
+                    alert('Пожалуйста, заполните имя и email перед регистрацией.');
+                    return false;
+                }
+
+                // Имитация успешной регистрации
+                isRegistered = true;
+                isSubscriptionVerified = false;   // сбрасываем верификацию при новой регистрации
+                updateUI();
+
+                // анимация/фидбек
+                statusIcon.style.color = '#f6d186';
+                statusLabel.innerText = '✅ зарегистрированы · проверьте подписку';
+                // дополнительный фидбек
+                const btn = googleBtn;
+                btn.style.background = 'rgba(100,200,120,0.15)';
+                btn.style.borderColor = '#8bc34a';
+                setTimeout(() => {
+                    btn.style.background = 'rgba(255,255,255,0.04)';
+                    btn.style.borderColor = 'rgba(255,255,255,0.15)';
+                }, 600);
+
+                // Показываем уведомление (необязательно)
+                // но ключ ещё скрыт
+                return true;
+            }
+
+            // РЕГИСТРАЦИЯ через Google (кнопка)
+            googleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Имитация входа через Google — сразу "регистрируем"
+                // можно выставить дефолтные значения, но лучше взять из полей
+                performRegistration();
+            });
+
+            // ПРОВЕРКА ПОДПИСКИ (кнопка)
+            verifyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (!isRegistered) {
+                    // если не зарегистрированы — просим регистрацию
+                    alert('Сначала зарегистрируйтесь через Google или заполните поля и нажмите "Регистрация через Google".');
+                    return;
+                }
+
+                // Если уже подтверждена — просто показываем сообщение
+                if (isSubscriptionVerified) {
+                    alert('Подписка уже подтверждена! Ваш ключ: 1111');
+                    return;
+                }
+
+                // Имитация проверки подписки: ВСЕГДА УСПЕШНО (выдаём ключ 1111)
+                isSubscriptionVerified = true;
+                updateUI();
+
+                // Дополнительно: анимация кнопки
+                verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Подтверждено';
+                verifyBtn.style.background = '#8bc34a';
+                verifyBtn.style.color = '#0f1a1a';
+                setTimeout(() => {
+                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Проверить подписку';
+                    verifyBtn.style.background = 'linear-gradient(145deg, #f6d186, #eab96b)';
+                    verifyBtn.style.color = '#121624';
+                }, 1600);
+
+                // показываем ключ (уже через updateUI)
+                // дополнительно подсветка
+                const container = document.getElementById('keyContainer');
+                container.style.borderColor = '#8bc34a';
+                container.style.boxShadow = '0 0 30px rgba(139,195,74,0.2)';
+                setTimeout(() => {
+                    container.style.borderColor = 'rgba(246, 209, 134, 0.25)';
+                    container.style.boxShadow = 'none';
+                }, 2000);
+            });
+
+            // При загрузке страницы — если есть поля, но регистрация false
+            // Можно сделать авто-регистрацию для демо? нет, оставим как есть.
+            // Но для удобства сделаем предзаполненный статус, но без регистрации.
+            // Вручную вызовем updateUI для корректного отображения
+            // (по умолчанию isRegistered = false)
+            // но ключ покажем как •••• 
+            // а также чтобы при вводе данных ничего не ломалось.
+            updateUI();
+
+            // Дополнительно: при изменении полей — не сбрасываем регистрацию.
+            // Но если пользователь меняет поля после регистрации — регистрация остаётся.
+            // (можно было бы сделать сброс, но по заданию не требуется)
+
+            // Если пользователь захочет перерегистрироваться — просто нажмёт Google снова.
+            // Можно также повесить на Enter в полях (но для простоты — только кнопка)
+
+            // + защита от повторной регистрации: если уже зареган, можно обновить
+            // но мы позволим повторно нажать Google — тогда сбросим подписку и перерегистрируем
+            // Чтобы не было путаницы: переопределим performRegistration для сброса подписки
+            // сохраним оригинал
+            const originalReg = performRegistration;
+            performRegistration = function() {
+                // если уже зарегистрирован — сбросим подписку (но оставим регистрацию)
+                // но по логике: если нажать гугл ещё раз — перерегистрация
+                // сделаем: сброс и новая регистрация
+                const name = usernameInput.value.trim();
+                const email = emailInput.value.trim();
+                if (name === '' || email === '') {
+                    alert('Заполните имя и email.');
+                    return false;
+                }
+                // сброс
+                isRegistered = false;
+                isSubscriptionVerified = false;
+                // теперь регистрируем заново
+                isRegistered = true;
+                isSubscriptionVerified = false;
+                updateUI();
+                // фидбек
+                statusIcon.style.color = '#f6d186';
+                statusLabel.innerText = '✅ зарегистрированы · проверьте подписку';
+                return true;
+            };
+
+            // Переопределим обработчик гугл кнопки
+            googleBtn.removeEventListener('click', null); // так просто не убрать, но перезапишем
+            // лучше заменим слушатель
+            const newGoogleHandler = function(e) {
+                e.preventDefault();
+                performRegistration();
+            };
+            // Удалим старые слушатели (для чистоты) — заменим на новый
+            // Просто заменим: скопируем функцию
+            googleBtn.onclick = function(e) {
+                e.preventDefault();
+                performRegistration();
+            };
+
+            // Также для verifyBtn — оставим как есть, но учтём что performRegistration изменён
+            // всё работает
+
+            // дополнительно: если нажать verify без регистрации — предупредим
+            // уже есть проверка в verifyBtn
+
+            console.log('RELOAD · живая страница готова. Ключ 1111 выдаётся после проверки подписки.');
+        })();
+    </script>
+</body>
+</html>
