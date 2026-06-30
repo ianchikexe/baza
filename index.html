@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RELOAD · живая регистрация</title>
-    <!-- Font Awesome (иконки) -->
+    <title>RELOAD · живая подписка</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ГЛОБАЛЬНЫЙ СБРОС И ЖИВОЙ ФОН */
         * {
             margin: 0;
             padding: 0;
@@ -21,159 +20,198 @@
             justify-content: center;
             align-items: center;
             background: #0b0f1c;
-            /* Живые обои — градиент + анимированные блики */
-            background: radial-gradient(circle at 20% 30%, #1a1f35, #090c17);
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
             padding: 20px;
         }
 
-        /* Анимированные «живые» пятна — эффект живых обоев */
-        body::before {
-            content: '';
+        /* ===== ЖИВЫЕ ОБОИ ===== */
+        .live-wallpaper {
             position: fixed;
             inset: 0;
             z-index: 0;
             background: 
-                radial-gradient(2rem 2rem at 10% 20%, rgba(255, 215, 100, 0.15), transparent 70%),
-                radial-gradient(3rem 3rem at 80% 70%, rgba(100, 200, 255, 0.12), transparent 70%),
-                radial-gradient(4rem 4rem at 40% 80%, rgba(200, 100, 255, 0.10), transparent 70%);
-            animation: breatheGlow 8s ease-in-out infinite alternate;
+                radial-gradient(ellipse at 20% 30%, #1a1f3a, #080b16),
+                radial-gradient(ellipse at 80% 70%, #141c30, #060912);
+            animation: wallpaperPulse 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes wallpaperPulse {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Плавающие светящиеся сферы */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
             pointer-events: none;
+            animation: orbFloat 15s ease-in-out infinite alternate;
         }
 
-        @keyframes breatheGlow {
-            0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
-            100% { opacity: 1; transform: scale(1.1) rotate(3deg); }
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(246, 209, 134, 0.15), transparent 70%);
+            top: -100px;
+            left: -100px;
+            animation-duration: 18s;
         }
 
-        /* второй слой — движущиеся искры */
-        body::after {
-            content: '';
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(100, 180, 255, 0.10), transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .orb3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(200, 130, 255, 0.08), transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 25s;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -40px) scale(1.1); }
+            66% { transform: translate(-30px, 60px) scale(0.9); }
+            100% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        /* Мерцающие звёзды */
+        .stars {
             position: fixed;
             inset: 0;
             z-index: 0;
             background-image: 
-                radial-gradient(2px 2px at 20% 30%, rgba(255,255,240,0.3), transparent),
-                radial-gradient(2px 2px at 40% 70%, rgba(255,255,240,0.2), transparent),
-                radial-gradient(3px 3px at 70% 20%, rgba(255,255,240,0.25), transparent),
-                radial-gradient(1px 1px at 90% 80%, rgba(255,255,240,0.4), transparent),
-                radial-gradient(2px 2px at 5% 90%, rgba(255,255,240,0.2), transparent);
+                radial-gradient(2px 2px at 10% 20%, rgba(255,255,240,0.4), transparent),
+                radial-gradient(2px 2px at 30% 60%, rgba(255,255,240,0.3), transparent),
+                radial-gradient(3px 3px at 50% 10%, rgba(255,255,240,0.2), transparent),
+                radial-gradient(1px 1px at 70% 80%, rgba(255,255,240,0.5), transparent),
+                radial-gradient(2px 2px at 90% 40%, rgba(255,255,240,0.25), transparent),
+                radial-gradient(1px 1px at 15% 85%, rgba(255,255,240,0.3), transparent),
+                radial-gradient(2px 2px at 60% 50%, rgba(255,255,240,0.2), transparent);
             background-size: 200% 200%;
-            animation: sparkleDrift 12s linear infinite;
+            animation: starsDrift 20s linear infinite;
             pointer-events: none;
         }
 
-        @keyframes sparkleDrift {
+        @keyframes starsDrift {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 0%; }
         }
 
-        /* КАРТОЧКА */
+        /* ===== КАРТОЧКА ===== */
         .glass-card {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 460px;
-            background: rgba(20, 25, 45, 0.65);
-            backdrop-filter: blur(14px) saturate(180%);
-            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            max-width: 480px;
+            background: rgba(12, 16, 30, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: 48px;
             padding: 40px 32px;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: all 0.25s ease;
-            color: #f0f3ff;
+            box-shadow: 0 40px 70px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: box-shadow 0.4s ease;
         }
 
         .glass-card:hover {
-            box-shadow: 0 40px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,215,100,0.2);
+            box-shadow: 0 50px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(246, 209, 134, 0.15);
         }
 
-        /* ЛОГОТИП / НАЗВАНИЕ */
+        /* ===== БРЕНД ===== */
         .brand {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 28px;
-            font-size: 2.4rem;
+            gap: 14px;
+            margin-bottom: 8px;
+            font-size: 2.6rem;
             font-weight: 700;
-            letter-spacing: 4px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-            background: linear-gradient(135deg, #f6e9a0, #f0c27f);
+            letter-spacing: 5px;
+            background: linear-gradient(135deg, #f6e9a0, #f0c27f, #e6b06a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 40px rgba(246, 209, 134, 0.15);
         }
 
         .brand i {
-            font-size: 2.2rem;
             -webkit-text-fill-color: initial;
             color: #f6d186;
-            filter: drop-shadow(0 0 8px #f0b87b);
+            filter: drop-shadow(0 0 12px rgba(246, 209, 134, 0.3));
+            font-size: 2.4rem;
         }
 
         .sub-brand {
             text-align: center;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            opacity: 0.6;
-            margin-top: -18px;
-            margin-bottom: 28px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            margin-bottom: 30px;
+            color: #b0c4e8;
             font-weight: 300;
-            color: #cdd6f0;
         }
 
-        /* ПОЛЯ ВВОДА */
+        /* ===== ПОЛЯ ===== */
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             position: relative;
         }
 
         .input-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 400;
             letter-spacing: 0.5px;
-            color: #b3c2e6;
+            color: #9aafd4;
             margin-bottom: 6px;
             text-transform: uppercase;
         }
 
         .input-group input {
             width: 100%;
-            padding: 16px 20px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.08);
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.07);
             border-radius: 40px;
             font-size: 1rem;
             color: #f0f3ff;
             outline: none;
-            transition: 0.25s;
+            transition: 0.3s;
             backdrop-filter: blur(4px);
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .input-group input:focus {
             border-color: #f6d186;
-            background: rgba(10, 14, 30, 0.6);
-            box-shadow: 0 0 0 4px rgba(246, 209, 134, 0.15), inset 0 2px 6px rgba(0,0,0,0.5);
+            background: rgba(10, 14, 30, 0.7);
+            box-shadow: 0 0 0 4px rgba(246, 209, 134, 0.1), inset 0 2px 8px rgba(0,0,0,0.5);
         }
 
         .input-group input::placeholder {
-            color: #7b89b0;
+            color: #5e6e92;
             font-weight: 300;
-            letter-spacing: 0.3px;
         }
 
-        /* КНОПКА GOOGLE (имитация) */
+        /* ===== КНОПКА GOOGLE (выбор аккаунта) ===== */
         .google-btn {
             width: 100%;
             padding: 14px;
             background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 60px;
             color: #eef3ff;
             font-weight: 500;
@@ -182,16 +220,18 @@
             align-items: center;
             justify-content: center;
             gap: 14px;
-            transition: 0.2s;
+            transition: 0.25s;
             cursor: pointer;
-            margin: 16px 0 20px;
+            margin: 14px 0 18px;
             backdrop-filter: blur(2px);
+            position: relative;
+            overflow: hidden;
         }
 
         .google-btn:hover {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.10);
             border-color: #f6d186;
-            box-shadow: 0 0 20px rgba(246, 209, 134, 0.15);
+            box-shadow: 0 0 30px rgba(246, 209, 134, 0.10);
             transform: scale(1.01);
         }
 
@@ -200,23 +240,216 @@
             color: #f2e0c0;
         }
 
-        /* СТАТУС / КНОПКА ПРОВЕРКИ */
+        .google-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== ВЫБОР АККАУНТА (модальное окно) ===== */
+        .account-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .account-modal.active {
+            display: flex;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content {
+            background: rgba(18, 24, 45, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 32px 28px;
+            max-width: 380px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 50px 80px rgba(0,0,0,0.8);
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #e8edff;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .account-option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 30px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .account-option:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(246, 209, 134, 0.2);
+            transform: translateX(4px);
+        }
+
+        .account-option .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f6d186, #eab96b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #121624;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .account-option .info {
+            flex: 1;
+        }
+
+        .account-option .info .name {
+            font-weight: 500;
+            color: #f0f3ff;
+            font-size: 0.95rem;
+        }
+
+        .account-option .info .email {
+            font-size: 0.8rem;
+            color: #889bc0;
+        }
+
+        .account-option .check {
+            color: #8bc34a;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .account-option:hover .check {
+            opacity: 0.4;
+        }
+
+        .modal-close {
+            text-align: center;
+            margin-top: 16px;
+            color: #6a7ca0;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #f6d186;
+        }
+
+        /* ===== ЗАГРУЗКА (красивая) ===== */
+        .loader-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(8, 12, 28, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .loader-overlay.active {
+            display: flex;
+        }
+
+        .loader-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(246, 209, 134, 0.1);
+            border-top: 3px solid #f6d186;
+            border-right: 3px solid #f0c27f;
+            animation: spin 1s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+            box-shadow: 0 0 50px rgba(246, 209, 134, 0.1);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            color: #d0def5;
+            font-weight: 300;
+            letter-spacing: 4px;
+            font-size: 1rem;
+            animation: pulseText 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .loader-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f6d186, #f0c27f, #e6b06a);
+            border-radius: 4px;
+            animation: progressLoad 2.2s ease-in-out forwards;
+        }
+
+        @keyframes progressLoad {
+            0% { width: 0%; }
+            30% { width: 35%; }
+            60% { width: 65%; }
+            85% { width: 85%; }
+            100% { width: 100%; }
+        }
+
+        /* ===== СТАТУС ===== */
         .status-area {
             background: rgba(0,0,0,0.25);
             border-radius: 40px;
             padding: 16px 20px;
-            margin: 20px 0 16px;
+            margin: 16px 0 14px;
             border-left: 2px solid #f6d186;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
         .status-text {
             font-weight: 300;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #cfdcf5;
             display: flex;
             align-items: center;
@@ -224,7 +457,9 @@
         }
 
         .status-text i {
-            color: #f6c97e;
+            color: #7f8fb0;
+            font-size: 0.6rem;
+            transition: 0.3s;
         }
 
         .btn-verify {
@@ -235,8 +470,8 @@
             font-weight: 600;
             color: #121624;
             letter-spacing: 0.5px;
-            box-shadow: 0 6px 14px rgba(246, 209, 134, 0.2);
-            transition: 0.2s;
+            box-shadow: 0 6px 18px rgba(246, 209, 134, 0.2);
+            transition: 0.25s;
             cursor: pointer;
             font-size: 0.9rem;
             display: flex;
@@ -244,34 +479,46 @@
             gap: 8px;
         }
 
-        .btn-verify:hover {
+        .btn-verify:hover:not(:disabled) {
             transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(246, 209, 134, 0.4);
+            box-shadow: 0 8px 30px rgba(246, 209, 134, 0.4);
             background: #fadc9a;
         }
 
-        .btn-verify:active {
+        .btn-verify:active:not(:disabled) {
             transform: scale(0.97);
         }
 
-        /* КЛЮЧ — ВЫДАЁТСЯ ПОСЛЕ ПРОВЕРКИ */
+        .btn-verify:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== КЛЮЧ ===== */
         .key-container {
-            margin: 18px 0 8px;
-            padding: 12px 18px;
+            margin: 16px 0 6px;
+            padding: 14px 20px;
             background: rgba(0,0,0,0.3);
             border-radius: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            border: 1px dashed rgba(246, 209, 134, 0.25);
-            transition: 0.3s;
+            gap: 16px;
+            border: 1px dashed rgba(246, 209, 134, 0.15);
+            transition: 0.4s;
+        }
+
+        .key-container.active {
+            border-color: #8bc34a;
+            box-shadow: 0 0 40px rgba(139, 195, 74, 0.10);
         }
 
         .key-label {
             font-weight: 300;
             color: #b3c7ed;
             letter-spacing: 1px;
+            font-size: 0.9rem;
         }
 
         .key-value {
@@ -279,85 +526,141 @@
             font-weight: 700;
             font-size: 1.8rem;
             letter-spacing: 6px;
-            color: #f6e19b;
-            text-shadow: 0 0 30px rgba(246, 209, 134, 0.3);
-        }
-
-        .key-placeholder {
             color: #4d5a7a;
-            font-weight: 300;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            transition: 0.4s;
         }
 
-        /* МЕЛКИЙ ТЕКСТ */
+        .key-value.revealed {
+            color: #f6e19b;
+            text-shadow: 0 0 40px rgba(246, 209, 134, 0.3);
+        }
+
+        .key-check {
+            color: #4d5a7a;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .key-check.revealed {
+            color: #8bc34a;
+        }
+
+        /* ===== FOOTER ===== */
         .footnote {
             text-align: center;
-            margin-top: 28px;
-            font-size: 0.7rem;
-            opacity: 0.35;
-            letter-spacing: 1px;
+            margin-top: 24px;
+            font-size: 0.65rem;
+            opacity: 0.3;
+            letter-spacing: 1.5px;
             color: #afc0e0;
             border-top: 1px solid rgba(255,255,255,0.03);
-            padding-top: 18px;
+            padding-top: 16px;
         }
 
-        /* АДАПТИВ */
+        /* ===== АДАПТИВ ===== */
         @media (max-width: 480px) {
-            .glass-card { padding: 28px 18px; }
-            .brand { font-size: 1.9rem; }
+            .glass-card { padding: 28px 16px; }
+            .brand { font-size: 2rem; }
+            .brand i { font-size: 1.8rem; }
             .status-area { flex-direction: column; align-items: stretch; }
             .btn-verify { justify-content: center; }
+            .modal-content { margin: 20px; }
         }
     </style>
 </head>
 <body>
+    <!-- ЖИВЫЕ ОБОИ -->
+    <div class="live-wallpaper"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="stars"></div>
+
+    <!-- ===== ВЫБОР АККАУНТА (модалка) ===== -->
+    <div class="account-modal" id="accountModal">
+        <div class="modal-content">
+            <div class="modal-title"><i class="fas fa-user-circle" style="margin-right: 10px;"></i>Выберите аккаунт</div>
+            <div class="account-option" data-account="alex">
+                <div class="avatar">A</div>
+                <div class="info">
+                    <div class="name">Alex Novikov</div>
+                    <div class="email">alex@reload.xyz</div>
+                </div>
+                <div class="check"><i class="fas fa-check-circle"></i></div>
+            </div>
+            <div class="account-option" data-account="maria">
+                <div class="avatar">M</div>
+                <div class="info">
+                    <div class="name">Maria Schneider</div>
+                    <div class="email">maria@reload.xyz</div>
+                </div>
+                <div class="check"><i class="fas fa-check-circle"></i></div>
+            </div>
+            <div class="account-option" data-account="dmitry">
+                <div class="avatar">D</div>
+                <div class="info">
+                    <div class="name">Dmitry Volkov</div>
+                    <div class="email">dmitry@reload.xyz</div>
+                </div>
+                <div class="check"><i class="fas fa-check-circle"></i></div>
+            </div>
+            <div class="modal-close" id="modalClose"><i class="fas fa-times-circle"></i> Отмена</div>
+        </div>
+    </div>
+
+    <!-- ===== ЗАГРУЗКА (красивая) ===== -->
+    <div class="loader-overlay" id="loaderOverlay">
+        <div class="loader-ring"></div>
+        <div class="loader-text"><i class="fas fa-sync-alt fa-fw" style="margin-right: 10px;"></i>RELOAD · подключение</div>
+        <div class="loader-progress">
+            <div class="loader-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ КАРТОЧКА ===== -->
     <div class="glass-card">
-        <!-- Название RELOAD -->
         <div class="brand">
             <i class="fas fa-sync-alt fa-fw"></i> RELOAD
         </div>
         <div class="sub-brand">⚡ живая подписка · ключ 1111</div>
 
-        <!-- ИМЯ (регистрация) -->
+        <!-- Имя -->
         <div class="input-group">
-            <label><i class="far fa-user-circle" style="margin-right: 8px;"></i> Ваше имя</label>
-            <input type="text" id="username" placeholder="Например: Alex" value="Alex">
+            <label><i class="far fa-user-circle" style="margin-right: 8px;"></i> Имя</label>
+            <input type="text" id="username" placeholder="Ваше имя" value="Alex">
         </div>
 
-        <!-- EMAIL -->
+        <!-- Email -->
         <div class="input-group">
             <label><i class="far fa-envelope" style="margin-right: 8px;"></i> Email</label>
-            <input type="email" id="email" placeholder="you@example.com" value="demo@reload.xyz">
+            <input type="email" id="email" placeholder="you@example.com" value="alex@reload.xyz">
         </div>
 
-        <!-- Кнопка "Зарегистрироваться через Google" (имитация) -->
-        <div class="google-btn" id="googleRegBtn">
-            <i class="fab fa-google"></i> Регистрация через Google
-        </div>
+        <!-- Кнопка Google с выбором аккаунта -->
+        <button class="google-btn" id="googleBtn">
+            <i class="fab fa-google"></i> Войти через Google
+        </button>
 
-        <!-- СТАТУС + КНОПКА ПРОВЕРИТЬ ПОДПИСКУ -->
+        <!-- СТАТУС + ПРОВЕРКА -->
         <div class="status-area">
             <span class="status-text" id="statusMessage">
-                <i class="fas fa-circle" style="color: #7f8fb0; font-size: 0.6rem;"></i>
-                <span id="statusLabel">Ожидание регистрации</span>
+                <i class="fas fa-circle" id="statusIcon"></i>
+                <span id="statusLabel">Ожидание входа</span>
             </span>
-            <button class="btn-verify" id="verifyBtn">
+            <button class="btn-verify" id="verifyBtn" disabled>
                 <i class="fas fa-check-circle"></i> Проверить подписку
             </button>
         </div>
 
-        <!-- БЛОК С КЛЮЧОМ (изначально скрыт или заглушка) -->
+        <!-- КЛЮЧ -->
         <div class="key-container" id="keyContainer">
             <span class="key-label"><i class="fas fa-key"></i> КЛЮЧ</span>
-            <span class="key-value" id="keyDisplay">1111</span>
-            <!-- иконка подтверждения -->
-            <i class="fas fa-check-circle" style="color: #8bc34a; font-size: 1.3rem; margin-left: 4px;"></i>
+            <span class="key-value" id="keyDisplay">••••</span>
+            <span class="key-check" id="keyCheck"><i class="fas fa-circle"></i></span>
         </div>
 
-        <!-- маленький footnote -->
         <div class="footnote">
-            <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> после регистрации — подтвердите подписку
+            <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> после входа — подтвердите подписку
         </div>
     </div>
 
@@ -366,195 +669,179 @@
             "use strict";
 
             // Элементы
-            const usernameInput = document.getElementById('username');
-            const emailInput = document.getElementById('email');
-            const googleBtn = document.getElementById('googleRegBtn');
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const googleBtn = document.getElementById('googleBtn');
             const verifyBtn = document.getElementById('verifyBtn');
             const statusLabel = document.getElementById('statusLabel');
-            const statusIcon = document.querySelector('.status-text i');
+            const statusIcon = document.getElementById('statusIcon');
             const keyDisplay = document.getElementById('keyDisplay');
+            const keyCheck = document.getElementById('keyCheck');
+            const keyContainer = document.getElementById('keyContainer');
+
+            // Модалка выбора аккаунта
+            const accountModal = document.getElementById('accountModal');
+            const accountOptions = document.querySelectorAll('.account-option');
+            const modalClose = document.getElementById('modalClose');
+
+            // Загрузка
+            const loaderOverlay = document.getElementById('loaderOverlay');
 
             // Состояние
-            let isRegistered = false;       // прошли регистрацию (имитация)
-            let isSubscriptionVerified = false; // подписка подтверждена
+            let isLoggedIn = false;
+            let isSubscriptionVerified = false;
+            let selectedAccount = null;
 
-            // Функция обновления UI
+            // --- ФУНКЦИИ UI ---
             function updateUI() {
-                // Меняем статус
-                if (!isRegistered) {
-                    statusLabel.innerText = '❌ не зарегистрированы';
+                if (!isLoggedIn) {
+                    statusLabel.innerText = '⏳ войдите через Google';
                     statusIcon.style.color = '#7f8fb0';
-                    // ключ показываем, но с плейсхолдером (или оставляем 1111, но делаем бледным)
+                    verifyBtn.disabled = true;
                     keyDisplay.innerText = '••••';
-                    keyDisplay.style.color = '#4d5a7a';
-                    keyDisplay.style.textShadow = 'none';
-                    // сбрасываем "подписку" если нет регистрации
-                    isSubscriptionVerified = false;
-                } else if (isRegistered && !isSubscriptionVerified) {
-                    statusLabel.innerText = '✅ зарегистрированы · проверьте подписку';
+                    keyDisplay.classList.remove('revealed');
+                    keyCheck.classList.remove('revealed');
+                    keyContainer.classList.remove('active');
+                    keyCheck.innerHTML = '<i class="fas fa-circle"></i>';
+                } else if (isLoggedIn && !isSubscriptionVerified) {
+                    statusLabel.innerText = '✅ вошли · проверьте подписку';
                     statusIcon.style.color = '#f6d186';
+                    verifyBtn.disabled = false;
                     keyDisplay.innerText = '••••';
-                    keyDisplay.style.color = '#4d5a7a';
-                    keyDisplay.style.textShadow = 'none';
-                } else if (isRegistered && isSubscriptionVerified) {
+                    keyDisplay.classList.remove('revealed');
+                    keyCheck.classList.remove('revealed');
+                    keyContainer.classList.remove('active');
+                    keyCheck.innerHTML = '<i class="fas fa-circle"></i>';
+                } else if (isLoggedIn && isSubscriptionVerified) {
                     statusLabel.innerText = '✅ подписка подтверждена · ключ активен';
                     statusIcon.style.color = '#8bc34a';
+                    verifyBtn.disabled = true;
                     keyDisplay.innerText = '1111';
-                    keyDisplay.style.color = '#f6e19b';
-                    keyDisplay.style.textShadow = '0 0 30px rgba(246, 209, 134, 0.3)';
+                    keyDisplay.classList.add('revealed');
+                    keyCheck.classList.add('revealed');
+                    keyContainer.classList.add('active');
+                    keyCheck.innerHTML = '<i class="fas fa-check-circle"></i>';
                 }
-
-                // Дополнительно: если регистрация есть, но верификация false, 
-                // то ключ показан как •••• (сделано выше)
-                // Но если регистрация есть и подписка подтверждена — показываем 1111
             }
 
-            // ИМИТАЦИЯ РЕГИСТРАЦИИ (Google или обычная)
-            function performRegistration() {
-                // простая валидация: имя и email не пустые
-                const name = usernameInput.value.trim();
-                const email = emailInput.value.trim();
-                if (name === '' || email === '') {
-                    alert('Пожалуйста, заполните имя и email перед регистрацией.');
-                    return false;
-                }
+            // --- ПОКАЗАТЬ ЗАГРУЗКУ ---
+            function showLoader(callback) {
+                loaderOverlay.classList.add('active');
+                // сброс анимации прогресса
+                const progressBar = document.querySelector('.loader-progress-bar');
+                progressBar.style.animation = 'none';
+                void progressBar.offsetWidth; // reflow
+                progressBar.style.animation = 'progressLoad 2.2s ease-in-out forwards';
 
-                // Имитация успешной регистрации
-                isRegistered = true;
-                isSubscriptionVerified = false;   // сбрасываем верификацию при новой регистрации
-                updateUI();
-
-                // анимация/фидбек
-                statusIcon.style.color = '#f6d186';
-                statusLabel.innerText = '✅ зарегистрированы · проверьте подписку';
-                // дополнительный фидбек
-                const btn = googleBtn;
-                btn.style.background = 'rgba(100,200,120,0.15)';
-                btn.style.borderColor = '#8bc34a';
                 setTimeout(() => {
-                    btn.style.background = 'rgba(255,255,255,0.04)';
-                    btn.style.borderColor = 'rgba(255,255,255,0.15)';
-                }, 600);
-
-                // Показываем уведомление (необязательно)
-                // но ключ ещё скрыт
-                return true;
+                    loaderOverlay.classList.remove('active');
+                    if (callback) callback();
+                }, 2500);
             }
 
-            // РЕГИСТРАЦИЯ через Google (кнопка)
-            googleBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Имитация входа через Google — сразу "регистрируем"
-                // можно выставить дефолтные значения, но лучше взять из полей
-                performRegistration();
+            // --- ОТКРЫТЬ МОДАЛКУ ВЫБОРА АККАУНТА ---
+            function openAccountModal() {
+                accountModal.classList.add('active');
+            }
+
+            function closeAccountModal() {
+                accountModal.classList.remove('active');
+            }
+
+            // --- ВЫБОР АККАУНТА ---
+            accountOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const account = this.dataset.account;
+                    selectedAccount = account;
+                    closeAccountModal();
+
+                    // Имитация выбора аккаунта → показываем загрузку
+                    showLoader(() => {
+                        // После загрузки — логин успешен
+                        isLoggedIn = true;
+                        isSubscriptionVerified = false;
+                        // Обновляем поля (для красоты)
+                        if (account === 'alex') {
+                            username.value = 'Alex Novikov';
+                            email.value = 'alex@reload.xyz';
+                        } else if (account === 'maria') {
+                            username.value = 'Maria Schneider';
+                            email.value = 'maria@reload.xyz';
+                        } else if (account === 'dmitry') {
+                            username.value = 'Dmitry Volkov';
+                            email.value = 'dmitry@reload.xyz';
+                        }
+                        updateUI();
+                        // Фидбек на кнопке Google
+                        googleBtn.innerHTML = '<i class="fab fa-google"></i> ✅ ' + selectedAccount;
+                        googleBtn.style.borderColor = '#8bc34a';
+                        googleBtn.style.background = 'rgba(139,195,74,0.12)';
+                    });
+                });
             });
 
-            // ПРОВЕРКА ПОДПИСКИ (кнопка)
-            verifyBtn.addEventListener('click', function(e) {
-                e.preventDefault();
+            // Закрыть модалку
+            modalClose.addEventListener('click', closeAccountModal);
+            // Закрытие по клику вне контента
+            accountModal.addEventListener('click', function(e) {
+                if (e.target === this) closeAccountModal();
+            });
 
-                if (!isRegistered) {
-                    // если не зарегистрированы — просим регистрацию
-                    alert('Сначала зарегистрируйтесь через Google или заполните поля и нажмите "Регистрация через Google".');
+            // --- КНОПКА GOOGLE ---
+            googleBtn.addEventListener('click', function() {
+                if (isLoggedIn) {
+                    // Если уже вошли — можно перевыбрать аккаунт
+                    if (confirm('Вы уже вошли. Хотите выбрать другой аккаунт?')) {
+                        // Сброс
+                        isLoggedIn = false;
+                        isSubscriptionVerified = false;
+                        updateUI();
+                        googleBtn.innerHTML = '<i class="fab fa-google"></i> Войти через Google';
+                        googleBtn.style.borderColor = 'rgba(255,255,255,0.12)';
+                        googleBtn.style.background = 'rgba(255,255,255,0.04)';
+                        openAccountModal();
+                    }
+                } else {
+                    openAccountModal();
+                }
+            });
+
+            // --- ПРОВЕРКА ПОДПИСКИ ---
+            verifyBtn.addEventListener('click', function() {
+                if (!isLoggedIn) {
+                    alert('Сначала войдите через Google!');
                     return;
                 }
-
-                // Если уже подтверждена — просто показываем сообщение
                 if (isSubscriptionVerified) {
                     alert('Подписка уже подтверждена! Ваш ключ: 1111');
                     return;
                 }
 
-                // Имитация проверки подписки: ВСЕГДА УСПЕШНО (выдаём ключ 1111)
-                isSubscriptionVerified = true;
-                updateUI();
-
-                // Дополнительно: анимация кнопки
-                verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Подтверждено';
-                verifyBtn.style.background = '#8bc34a';
-                verifyBtn.style.color = '#0f1a1a';
-                setTimeout(() => {
-                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Проверить подписку';
-                    verifyBtn.style.background = 'linear-gradient(145deg, #f6d186, #eab96b)';
-                    verifyBtn.style.color = '#121624';
-                }, 1600);
-
-                // показываем ключ (уже через updateUI)
-                // дополнительно подсветка
-                const container = document.getElementById('keyContainer');
-                container.style.borderColor = '#8bc34a';
-                container.style.boxShadow = '0 0 30px rgba(139,195,74,0.2)';
-                setTimeout(() => {
-                    container.style.borderColor = 'rgba(246, 209, 134, 0.25)';
-                    container.style.boxShadow = 'none';
-                }, 2000);
+                // Имитация проверки подписки с красивой загрузкой
+                showLoader(() => {
+                    isSubscriptionVerified = true;
+                    updateUI();
+                    // Анимация кнопки
+                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Подтверждено';
+                    verifyBtn.style.background = '#8bc34a';
+                    verifyBtn.style.color = '#0f1a1a';
+                    setTimeout(() => {
+                        verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Проверить подписку';
+                        verifyBtn.style.background = 'linear-gradient(145deg, #f6d186, #eab96b)';
+                        verifyBtn.style.color = '#121624';
+                        updateUI(); // обновим состояние
+                    }, 1800);
+                });
             });
 
-            // При загрузке страницы — если есть поля, но регистрация false
-            // Можно сделать авто-регистрацию для демо? нет, оставим как есть.
-            // Но для удобства сделаем предзаполненный статус, но без регистрации.
-            // Вручную вызовем updateUI для корректного отображения
-            // (по умолчанию isRegistered = false)
-            // но ключ покажем как •••• 
-            // а также чтобы при вводе данных ничего не ломалось.
+            // --- ИНИЦИАЛИЗАЦИЯ ---
             updateUI();
 
-            // Дополнительно: при изменении полей — не сбрасываем регистрацию.
-            // Но если пользователь меняет поля после регистрации — регистрация остаётся.
-            // (можно было бы сделать сброс, но по заданию не требуется)
+            // Если пользователь захочет изменить имя/email после входа — не сбрасываем логин,
+            // но можно разрешить. Оставим как есть.
 
-            // Если пользователь захочет перерегистрироваться — просто нажмёт Google снова.
-            // Можно также повесить на Enter в полях (но для простоты — только кнопка)
-
-            // + защита от повторной регистрации: если уже зареган, можно обновить
-            // но мы позволим повторно нажать Google — тогда сбросим подписку и перерегистрируем
-            // Чтобы не было путаницы: переопределим performRegistration для сброса подписки
-            // сохраним оригинал
-            const originalReg = performRegistration;
-            performRegistration = function() {
-                // если уже зарегистрирован — сбросим подписку (но оставим регистрацию)
-                // но по логике: если нажать гугл ещё раз — перерегистрация
-                // сделаем: сброс и новая регистрация
-                const name = usernameInput.value.trim();
-                const email = emailInput.value.trim();
-                if (name === '' || email === '') {
-                    alert('Заполните имя и email.');
-                    return false;
-                }
-                // сброс
-                isRegistered = false;
-                isSubscriptionVerified = false;
-                // теперь регистрируем заново
-                isRegistered = true;
-                isSubscriptionVerified = false;
-                updateUI();
-                // фидбек
-                statusIcon.style.color = '#f6d186';
-                statusLabel.innerText = '✅ зарегистрированы · проверьте подписку';
-                return true;
-            };
-
-            // Переопределим обработчик гугл кнопки
-            googleBtn.removeEventListener('click', null); // так просто не убрать, но перезапишем
-            // лучше заменим слушатель
-            const newGoogleHandler = function(e) {
-                e.preventDefault();
-                performRegistration();
-            };
-            // Удалим старые слушатели (для чистоты) — заменим на новый
-            // Просто заменим: скопируем функцию
-            googleBtn.onclick = function(e) {
-                e.preventDefault();
-                performRegistration();
-            };
-
-            // Также для verifyBtn — оставим как есть, но учтём что performRegistration изменён
-            // всё работает
-
-            // дополнительно: если нажать verify без регистрации — предупредим
-            // уже есть проверка в verifyBtn
-
-            console.log('RELOAD · живая страница готова. Ключ 1111 выдаётся после проверки подписки.');
+            console.log('RELOAD · живая страница с выбором аккаунта и загрузкой');
+            console.log('Ключ 1111 выдаётся после подтверждения подписки.');
         })();
     </script>
 </body>
